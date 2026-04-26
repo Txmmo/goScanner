@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"net"
 	"time"
+
+	"portScanner/scanner"
 )
 
 func main() {
@@ -12,15 +13,8 @@ func main() {
 
 	for port := 1; port <= 1024; port++ {
 
-		address := fmt.Sprintf("scanme.nmap.org:%d", port)
-
-		conn, err := net.DialTimeout("tcp", address, timeout)
-
-		if err != nil {
-			continue // port closed/filtered → move on
-		}
-
-		conn.Close()
+	if scanner.CheckPort("scanme.nmap.org", port, timeout) {
 		fmt.Printf("Port %d is open\n", port)
+		}
 	}
 }
