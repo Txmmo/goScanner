@@ -9,12 +9,18 @@ import (
 func main() {
 	
 	timeout := 1*time.Second
-	conn, err := net.DialTimeout("tcp", "scanme.nmap.org:80", timeout)
 
-	if err != nil {
-		fmt.Println("Port 80 is closed or filtered")
-		return
+	for port := 1; port <= 1024; port++ {
+
+		address := fmt.Sprintf("scanme.nmap.org:%d", port)
+
+		conn, err := net.DialTimeout("tcp", address, timeout)
+
+		if err != nil {
+			continue // port closed/filtered → move on
+		}
+
+		conn.Close()
+		fmt.Printf("Port %d is open\n", port)
 	}
-	defer conn.Close()
-	fmt.Println("Port 80 is open")
 }
