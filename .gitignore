@@ -1,0 +1,17 @@
+# Binaries
+
+bin/
+
+*.exe
+
+*.out
+
+# Go build cache
+
+*.test
+
+*.log
+
+# IDE files
+
+.vscode/
