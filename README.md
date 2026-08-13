@@ -9,6 +9,9 @@ Program was built for two reasons:
 -Building upon my Python port scanner, which was extremely slow
 
 # ToDo
--Enable concurrency
 
--CLI arguments
+1. Concurrent scanning with a worker pool
+2. CLI validation and clearer flags
+3. Configurable port ranges
+4. Structured scan results
+5. Proper hostname/IPv4/IPv6 handling
