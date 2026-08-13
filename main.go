@@ -5,6 +5,7 @@ import (
 	"time"
 	"flag"
 	"strings"
+	"net"
 	"github.com/common-nighthawk/go-figure"
 
 	"portScanner/scanner"
@@ -18,11 +19,16 @@ func main() {
 		hostname = takes a hostname value of type string
 
 		timeout = takes a timeout value of type integer
+
+		port scanner is extremely basic currently
 	*/
 
-	hostname := flag.String("hostname", "", "a string" )
+	//inet := flag.String("ip", "", "an IPv4 string")
+	hostname := flag.String("hostname", "", "a Hostname string" )
 	timeout := flag.Duration("time", 100*time.Millisecond, "Defines a timeout")
 	flag.Parse()
+
+	ips, _ := net.LookupIP(*hostname)
 
 	executeTime := time.Now().Format(time.RFC850)
 
@@ -32,8 +38,14 @@ func main() {
 	myFigure.Print()
 
 	fmt.Println(strings.Repeat("=", 75))
-	fmt.Printf("Starting goScan v1.0 on %s\n", executeTime)
-	fmt.Printf("Checking ports on %s\n", *hostname)
+
+	for _, ip := range ips {
+		if ipv4 := ip.To4(); ipv4 != nil {
+			fmt.Printf("Starting goScan v1.0 on %s\n", executeTime)
+			fmt.Printf("Checking ports on %s\n", ipv4)
+		}
+	}
+	
 
 	for port := 1; port <= 1024; port++ {
 	
