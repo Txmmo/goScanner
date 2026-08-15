@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"time"
 	"flag"
-	"strings"
+	"fmt"
 	"net"
+	"strings"
+	"time"
+
 	"github.com/common-nighthawk/go-figure"
 
 	"portScanner/scanner"
@@ -24,7 +25,7 @@ func main() {
 	*/
 
 	//inet := flag.String("ip", "", "an IPv4 string")
-	hostname := flag.String("hostname", "", "a Hostname string" )
+	hostname := flag.String("hostname", "", "a Hostname string")
 	timeout := flag.Duration("time", 100*time.Millisecond, "Defines a timeout")
 	flag.Parse()
 
@@ -45,15 +46,14 @@ func main() {
 			fmt.Printf("Checking ports on %s\n", ipv4)
 		}
 	}
-	
 
 	for port := 1; port <= 1024; port++ {
-	
-	// If condition calls on CheckPort function within the scanner package
-	// CheckPort requires 3 parameters: hostname, port and timeout
 
-	if scanner.CheckPort(*hostname, port, *timeout) {
-		fmt.Printf("%d/tcp		open\n", port)
+		// If condition calls on CheckPort function within the scanner package
+		// CheckPort requires 3 parameters: hostname, port and timeout
+
+		if scanner.CheckPort(*hostname, port, *timeout) {
+			fmt.Printf("%d/tcp\t\topen\n", port)
 		}
 	}
 }
